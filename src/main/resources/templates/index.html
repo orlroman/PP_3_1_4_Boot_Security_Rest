@@ -5,7 +5,26 @@
 </head>
 <body>
 <h1>Welcome to Index PAGE!</h1>
-
+<div>
+    <table>
+        <tr>
+            <td>
+                <form th:action="@{/user}" th:method="POST">
+                    <input type="submit" value="User page"/>
+                </form>
+            </td>
+            <td>
+                <form th:action="@{/admin}" th:method="POST">
+                    <input type="submit" value="Admin page"/>
+                </form>
+            </td>
+        </tr>
+    </table>
+    <br/>
+    <form th:action="@{/logout}" th:method="POST">
+        <input type="submit" value="Logout"/>
+    </form>
+</div>
 
 </body>
 </html>
