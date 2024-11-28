@@ -46,7 +46,7 @@ public class DataInitialization {
 
         User admin;
         try {
-            userService.getUserByEmail("admin@example.com");
+            userService.getUserByUsername("admin@example.com");
         } catch (UsernameNotFoundException e) {
             admin = new User("Admin", "Admin", 30,
                     "admin@example.com", "admin", Set.of(adminRole, userRole));
@@ -55,7 +55,7 @@ public class DataInitialization {
         
         User user;
         try {
-            userService.getUserByEmail("user@example.com");
+            userService.getUserByUsername("user@example.com");
         } catch (UsernameNotFoundException e) {
             user = new User("User", "User", 35,
                     "user@example.com", "user", Set.of(userRole));

@@ -1,15 +1,41 @@
 <!DOCTYPE html>
-<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
+<html lang="en" xmlns:th="http://www.thymeleaf.org" xmlns="http://www.w3.org/1999/html">
 <head>
-    <title>Spring Security Example</title>
+    <meta charset="UTF-8">
+    <title>User page</title>
 </head>
 <body>
-<h1>User, welcome spring boot security page!</h1>
 
-<!--User information-->
+<div>
+    <table border="2">
+        <tr align="center">
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
+        </tr>
+        <tr th:object="${user}" align="center">
+            <td th:text="${user.getId()}">ID</td>
+            <td th:text="${user.getFirstName()}">First name</td>
+            <td th:text="${user.getLastName()}">Last name</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td th:text="${user.getEmail()}">Email</td>
 
+            <td th:each="role : ${user.getRoles()}"
+                th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')}">Role
+            </td>
 
-<!--For admin: return to admin page, edit user, delete user-->
+        </tr>
+    </table>
+</div>
+
+<br/>
+
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout"/>
+</form>
 
 </body>
 </html>

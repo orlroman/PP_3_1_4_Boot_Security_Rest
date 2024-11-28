@@ -9,9 +9,12 @@
 <div>
     <table border="2">
         <tr align="center">
-            <th>Name</th>
-            <th>Surname</th>
-            <th>Year of birth</th>
+            <th>ID</th>
+            <th>First name</th>
+            <th>Last name</th>
+            <th>Age</th>
+            <th>Email</th>
+            <th>Role</th>
         </tr>
         <tr th:each="user : ${users}" align="center">
             <td th:text="${user.getName()}">Name</td>
