@@ -16,24 +16,24 @@ import ru.kata.spring.boot_security.demo.service.UserDetailService;
 public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     
     private final UserDetailService userDetailService;
+    private final SuccessUserHandler successUserHandler;
     
     @Autowired
-    public WebSecurityConfig(UserDetailService userDetailService) {
+    public WebSecurityConfig(UserDetailService userDetailService, SuccessUserHandler successUserHandler) {
         this.userDetailService = userDetailService;
+        this.successUserHandler = successUserHandler;
     }
     
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-        http
-                .authorizeRequests()
-                .antMatchers("/", "/index").permitAll()
-                .anyRequest().authenticated()
+        http.authorizeRequests()
+                .antMatchers("/admin").hasRole("ADMIN")
+                .anyRequest().hasAnyRole("USER", "ADMIN")
                 .and()
-                .formLogin()
+                .formLogin().successHandler(successUserHandler)
                 .permitAll()
                 .and()
-                .logout()
-                .permitAll();
+                .logout();
     }
     
     @Override
