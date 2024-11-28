@@ -17,9 +17,14 @@
             <th>Role</th>
         </tr>
         <tr th:each="user : ${users}" align="center">
-            <td th:text="${user.getName()}">Name</td>
-            <td th:text="${user.getSurname()}">Surname</td>
-            <td th:text="${user.getYearOfBirth()}">YearOfBirth</td>
+            <td th:text="${user.getId()}">ID</td>
+            <td th:text="${user.getFirstName()}">First name</td>
+            <td th:text="${user.getLastName()}">Last name</td>
+            <td th:text="${user.getAge()}">Age</td>
+            <td th:text="${user.getEmail()}">Email</td>
+
+            <td th:each="role : ${user.getRoles()}" th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_') + ' '}">Role</td>
+
             <td>
                 <form th:action="@{/users/edit}" method="GET">
                     <input type="hidden" name="id" th:value="${user.getId()}">
@@ -38,8 +43,12 @@
 </div>
 <br/>
 
-<form th:action="@{/users/new}" method="GET">
+<form th:action="@{/admin/new}" th:method="GET">
     <input type="submit" value="New user"/>
+</form>
+<br/>
+<form th:action="@{/logout}" th:method="POST">
+    <input type="submit" value="Logout"/>
 </form>
 
 

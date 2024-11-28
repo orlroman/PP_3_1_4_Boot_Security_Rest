@@ -8,6 +8,7 @@ import org.springframework.transaction.annotation.Transactional;
 import ru.kata.spring.boot_security.demo.entity.User;
 import ru.kata.spring.boot_security.demo.repository.UserRepository;
 
+import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
 import java.util.List;
 import java.util.Optional;
@@ -36,16 +37,14 @@ public class UserServiceImpl implements UserService {
     
     @Override
     @Transactional
-    public boolean save(User user) {
+    public void save(User user) {
         User userFromDB = userRepository.findByEmail(user.getEmail());
         
         if (userFromDB != null) {
-            return false;
+            throw new EntityExistsException(String.format("User with this '%s' already exist", user.getEmail()));
         }
-        
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);
-        return true;
     }
     
     @Override
