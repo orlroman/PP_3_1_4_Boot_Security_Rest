@@ -19,13 +19,18 @@ public class AuthController {
         this.userService = userService;
     }
     
+    @GetMapping
+    public String index() {
+        return "redirect:/user";
+    }
+    
     @GetMapping(value = "/login")
     public String loginPage() {
         return "login";
     }
     
     @GetMapping(value = "/user")
-    public String index(Model model, Principal principal) {
+    public String userPage(Model model, Principal principal) {
         User user = userService.getUserByUsername(principal.getName());
         model.addAttribute("user", user);
         return "user/index";
