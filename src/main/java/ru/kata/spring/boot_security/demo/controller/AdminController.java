@@ -32,10 +32,16 @@ public class AdminController {
         this.userValidator = userValidator;
     }
     
+    @ModelAttribute("authUser")
+    public User addAuthenticatedUserModel(Principal principal) {
+        if (principal != null) {
+            return userService.getUserByUsername(principal.getName());
+        }
+        return null;
+    }
+    
     @GetMapping
-    public String index(Model model, Principal principal) {
-        User user = userService.getUserByUsername(principal.getName());
-        model.addAttribute("user", user);
+    public String index(Model model) {
         model.addAttribute("users", userService.getUsers());
         return "admin/index";
     }

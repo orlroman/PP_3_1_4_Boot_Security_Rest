@@ -12,9 +12,9 @@
 <nav class="navbar bg-dark">
     <div class="container-fluid">
         <div class="navbar-text text-light fs-5 ms-3">
-            <span class="fw-bold" th:text="${user.getEmail()}"></span>
+            <span class="fw-bold" th:text="${authUser.getEmail()}"></span>
             <span>with roles:</span>
-            <span th:each="role : ${user.getRoles()}"
+            <span th:each="role : ${authUser.getRoles()}"
                   th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')} + ' '">
             </span>
         </div>
@@ -32,7 +32,7 @@
                         <ul class="nav nav-pills flex-column">
                             <li class="nav-item ms-2">
                                 <a class="nav-link " href="/admin"
-                                   th:each="role : ${user.getRoles()}"
+                                   th:each="role : ${authUser.getRoles()}"
                                    th:if="${role.getTitle().equals('ROLE_ADMIN')}">Admin</a>
                             </li>
                             <li class="nav-item ms-2">
@@ -64,13 +64,13 @@
                                         </thead>
                                         <tbody>
                                         <tr class="table-active">
-                                            <td th:text="${user.getId()}">ID</td>
-                                            <td th:text="${user.getFirstName()}">First name</td>
-                                            <td th:text="${user.getLastName()}">Last name</td>
-                                            <td th:text="${user.getAge()}">Age</td>
-                                            <td th:text="${user.getEmail()}">Email</td>
+                                            <td th:text="${authUser.getId()}">ID</td>
+                                            <td th:text="${authUser.getFirstName()}">First name</td>
+                                            <td th:text="${authUser.getLastName()}">Last name</td>
+                                            <td th:text="${authUser.getAge()}">Age</td>
+                                            <td th:text="${authUser.getEmail()}">Email</td>
                                             <td>
-                                                <span th:each="role : ${user.getRoles()}"
+                                                <span th:each="role : ${authUser.getRoles()}"
                                                       th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')} + ' '"/>
                                             </td>
                                         </tr>
