@@ -19,7 +19,7 @@
             </span>
         </div>
         <form th:action="@{/logout}" th:method="POST">
-            <input class="btn btn-outline-light" type="submit" value="Logout" />
+            <input class="btn btn-outline-light" type="submit" value="Logout"/>
         </form>
     </div>
 </nav>
@@ -84,19 +84,17 @@
                                                   th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')} + ' '"/>
                                         </td>
                                         <td>
-<!--                                            <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" method="GET">-->
-<!--                                                <input type="submit" class="btn btn-info text-white" value="Edit"/>-->
-<!--                                            </form>-->
-                                            <!-- Кнопка для открытия модального окна -->
                                             <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
                                                     th:attr="data-bs-target='#editUser-' + ${user.getId()}">
                                                 Edit
                                             </button>
                                         </td>
                                         <td>
-                                            <form th:action="@{/admin/delete/{id}(id=${user.getId()})}" method="POST">
-                                                <input type="submit" class="btn btn-danger" value="Delete"/>
-                                            </form>
+                                            <button type="button" class="btn btn-danger text-white"
+                                                    data-bs-toggle="modal"
+                                                    th:attr="data-bs-target='#deleteUser-' + ${user.getId()}">
+                                                Delete
+                                            </button>
                                         </td>
                                     </tr>
                                     </tbody>
@@ -112,11 +110,12 @@
 
 <!-- modal edit user -->
 <div class="modal" th:each="user : ${users}" th:id="'editUser-' + ${user.getId()}"
+     th:classappend="${editError == user.id} ? 'show d-block' : ''"
      tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h5 class="modal-title" id="editUserLabel">Modal title</h5>
+                <h5 class="modal-title" id="editUserLabel">Edit user</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
                 </button>
             </div>
@@ -127,63 +126,59 @@
                         <label class="form-label fw-bold" for="id">ID</label>
                         <input class="form-control w-50 mx-auto bg-light" type="text" id="id"
                                th:field="*{id}"
-                               placeholder="ID"
-                               readonly>
+                               disabled>
                     </div>
+
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="firstName">First name</label>
                         <input class="form-control w-50 mx-auto" type="text" id="firstName"
                                th:field="*{firstName}"
-                               placeholder="First name"
-                               required>
-<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
-<!--                             th:if="${#fields.hasErrors('firstName')}"-->
-<!--                             th:errors="*{firstName}">firstName error-->
-<!--                        </div>-->
+                               placeholder="First name">
+
+                        <div class="alert alert-danger mt-2 w-75 mx-auto"
+                             th:if="${#fields.hasErrors('firstName')}"
+                             th:errors="*{firstName}">firstName error
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="lastName">Last name</label>
                         <input class="form-control w-50 mx-auto" type="text" id="lastName"
                                th:field="*{lastName}"
-                               placeholder="Last name"
-                               required>
-<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
-<!--                             th:if="${#fields.hasErrors('lastName')}"-->
-<!--                             th:errors="*{lastName}">lastName error-->
-<!--                        </div>-->
+                               placeholder="Last name">
+                        <div class="alert alert-danger mt-2 w-75 mx-auto"
+                             th:if="${#fields.hasErrors('lastName')}"
+                             th:errors="*{lastName}">lastName error
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="age">Age</label>
                         <input class="form-control w-50 mx-auto" type="number" id="age"
                                th:field="*{age}"
-                               placeholder="Age"
-                               required>
-<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
-<!--                             th:if="${#fields.hasErrors('age')}"-->
-<!--                             th:errors="*{age}">age error-->
-<!--                        </div>-->
+                               placeholder="Age">
+                        <div class="alert alert-danger mt-2 w-50 mx-auto"
+                             th:if="${#fields.hasErrors('age')}"
+                             th:errors="*{age}">age error
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="email">Email</label>
                         <input class="form-control w-50 mx-auto" type="email" id="email"
                                th:field="*{email}"
-                               placeholder="Email"
-                               required>
-<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
-<!--                             th:if="${#fields.hasErrors('email')}"-->
-<!--                             th:errors="*{email}">email error-->
-<!--                        </div>-->
+                               placeholder="Email">
+                        <div class="alert alert-danger mt-2 w-50 mx-auto"
+                             th:if="${#fields.hasErrors('email')}"
+                             th:errors="*{email}">email error
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="password">Password</label>
                         <input class="form-control w-50 mx-auto" type="password" id="password"
                                th:field="*{password}"
-                               placeholder="Password"
-                               required>
-<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
-<!--                             th:if="${#fields.hasErrors('password')}"-->
-<!--                             th:errors="*{password}">password error-->
-<!--                        </div>-->
+                               placeholder="Password">
+                        <div class="alert alert-danger mt-2 w-75 mx-auto"
+                             th:if="${#fields.hasErrors('password')}"
+                             th:errors="*{password}">password error
+                        </div>
                     </div>
                     <div class="mb-3">
                         <label for="roles" class="form-label fw-bold">Role</label>
@@ -194,15 +189,80 @@
                                     th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')}"></option>
                         </select>
                     </div>
-<!--                    <div class="alert alert-danger mt-2 w-25 mx-auto"-->
-<!--                         th:if="${#fields.hasErrors('roles')}"-->
-<!--                         th:errors="*{roles}">roles error-->
-<!--                    </div>-->
+                    <div class="alert alert-danger mt-2 w-50 mx-auto"
+                         th:if="${#fields.hasErrors('roles')}"
+                         th:errors="*{roles}">roles error
+                    </div>
                 </form>
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" th:attr="form='editUserForm-' + ${user.getId()}">Edit</button>
+                <button type="submit" class="btn btn-primary" th:attr="form='editUserForm-' + ${user.getId()}">Edit
+                </button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- modal delete user -->
+<div class="modal" th:each="user : ${users}" th:id="'deleteUser-' + ${user.getId()}"
+     tabindex="-1" aria-labelledby="deleteUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="deleteUserLabel">Edit user</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <form th:id="'deleteUserForm-' + ${user.getId()}" th:method="POST"
+                      th:action="@{/admin/delete/{id}(id=${user.getId()})}" th:object="${user}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="deleteUserId">ID</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="text" id="deleteUserId"
+                               th:field="*{id}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="deleteUserFirstName">First name</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="text" id="deleteUserFirstName"
+                               th:field="*{firstName}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="deleteUserLastName">Last name</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="text" id="deleteUserLastName"
+                               th:field="*{lastName}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="deleteUserAge">Age</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="number" id="deleteUserAge"
+                               th:field="*{age}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="deleteUserEmail">Email</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="email" id="deleteUserEmail"
+                               th:field="*{email}"
+                               disabled>
+                    </div>
+                    <div class="mb-3">
+                        <label for="deleteUserRoles" class="form-label fw-bold">Role</label>
+                        <select class="form-select w-50 mx-auto bg-light" id="deleteUserRoles" name="roles" multiple
+                                disabled>
+                            <option th:each="role : ${user.getRoles()}"
+                                    th:value="${role.id}"
+                                    th:field="*{roles}"
+                                    th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')}"></option>
+                        </select>
+                    </div>
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-danger" th:attr="form='deleteUserForm-' + ${user.getId()}">Delete
+                </button>
             </div>
         </div>
     </div>
