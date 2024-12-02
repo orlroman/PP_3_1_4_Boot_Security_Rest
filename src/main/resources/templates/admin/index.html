@@ -89,7 +89,7 @@
 <!--                                            </form>-->
                                             <!-- Кнопка для открытия модального окна -->
                                             <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
-                                                    data-bs-target="#editUser">
+                                                    th:attr="data-bs-target='#editUser-' + ${user.getId()}">
                                                 Edit
                                             </button>
                                         </td>
@@ -111,7 +111,8 @@
 </div>
 
 <!-- modal edit user -->
-<div class="modal" id="editUser" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+<div class="modal" th:each="user : ${users}" th:id="'editUser-' + ${user.getId()}"
+     tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
@@ -120,11 +121,12 @@
                 </button>
             </div>
             <div class="modal-body text-center">
-                <form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
+                <form th:id="'editUserForm-' + ${user.getId()}" th:method="POST"
+                      th:action="@{/admin/edit/{id}(id=${user.getId()})}" th:object="${user}">
                     <div class="mb-3">
                         <label class="form-label fw-bold" for="id">ID</label>
                         <input class="form-control w-50 mx-auto bg-light" type="text" id="id"
-                               th:field="*{firstName}"
+                               th:field="*{id}"
                                placeholder="ID"
                                readonly>
                     </div>
@@ -200,7 +202,7 @@
             </div>
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary" form="editUser">Edit</button>
+                <button type="submit" class="btn btn-primary" th:attr="form='editUserForm-' + ${user.getId()}">Edit</button>
             </div>
         </div>
     </div>

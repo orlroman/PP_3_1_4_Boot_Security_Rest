@@ -43,6 +43,8 @@ public class AdminController {
     @GetMapping
     public String index(Model model) {
         model.addAttribute("users", userService.getUsers());
+        model.addAttribute("roles", roleService.getRoles());
+        model.addAttribute("user", new User());
         return "admin/index";
     }
     
@@ -82,7 +84,7 @@ public class AdminController {
         userValidator.validate(user, bindingResult);
         
         if (bindingResult.hasErrors()) {
-            return "admin/edit";
+            return "redirect:/admin";
         }
         
         userService.update(id, user);
