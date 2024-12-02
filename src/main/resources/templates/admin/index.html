@@ -84,9 +84,14 @@
                                                   th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')} + ' '"/>
                                         </td>
                                         <td>
-                                            <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" method="GET">
-                                                <input type="submit" class="btn btn-info text-white" value="Edit"/>
-                                            </form>
+<!--                                            <form th:action="@{/admin/edit/{id}(id=${user.getId()})}" method="GET">-->
+<!--                                                <input type="submit" class="btn btn-info text-white" value="Edit"/>-->
+<!--                                            </form>-->
+                                            <!-- Кнопка для открытия модального окна -->
+                                            <button type="button" class="btn btn-info text-white" data-bs-toggle="modal"
+                                                    data-bs-target="#editUser">
+                                                Edit
+                                            </button>
                                         </td>
                                         <td>
                                             <form th:action="@{/admin/delete/{id}(id=${user.getId()})}" method="POST">
@@ -104,6 +109,103 @@
         </div>
     </div>
 </div>
+
+<!-- modal edit user -->
+<div class="modal" id="editUser" tabindex="-1" aria-labelledby="editUserLabel" aria-hidden="true">
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h5 class="modal-title" id="editUserLabel">Modal title</h5>
+                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close">
+                </button>
+            </div>
+            <div class="modal-body text-center">
+                <form th:method="POST" th:action="@{/admin/save}" th:object="${user}">
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="id">ID</label>
+                        <input class="form-control w-50 mx-auto bg-light" type="text" id="id"
+                               th:field="*{firstName}"
+                               placeholder="ID"
+                               readonly>
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="firstName">First name</label>
+                        <input class="form-control w-50 mx-auto" type="text" id="firstName"
+                               th:field="*{firstName}"
+                               placeholder="First name"
+                               required>
+<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
+<!--                             th:if="${#fields.hasErrors('firstName')}"-->
+<!--                             th:errors="*{firstName}">firstName error-->
+<!--                        </div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="lastName">Last name</label>
+                        <input class="form-control w-50 mx-auto" type="text" id="lastName"
+                               th:field="*{lastName}"
+                               placeholder="Last name"
+                               required>
+<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
+<!--                             th:if="${#fields.hasErrors('lastName')}"-->
+<!--                             th:errors="*{lastName}">lastName error-->
+<!--                        </div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="age">Age</label>
+                        <input class="form-control w-50 mx-auto" type="number" id="age"
+                               th:field="*{age}"
+                               placeholder="Age"
+                               required>
+<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
+<!--                             th:if="${#fields.hasErrors('age')}"-->
+<!--                             th:errors="*{age}">age error-->
+<!--                        </div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="email">Email</label>
+                        <input class="form-control w-50 mx-auto" type="email" id="email"
+                               th:field="*{email}"
+                               placeholder="Email"
+                               required>
+<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
+<!--                             th:if="${#fields.hasErrors('email')}"-->
+<!--                             th:errors="*{email}">email error-->
+<!--                        </div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label class="form-label fw-bold" for="password">Password</label>
+                        <input class="form-control w-50 mx-auto" type="password" id="password"
+                               th:field="*{password}"
+                               placeholder="Password"
+                               required>
+<!--                        <div class="alert alert-danger mt-2 w-50 mx-auto"-->
+<!--                             th:if="${#fields.hasErrors('password')}"-->
+<!--                             th:errors="*{password}">password error-->
+<!--                        </div>-->
+                    </div>
+                    <div class="mb-3">
+                        <label for="roles" class="form-label fw-bold">Role</label>
+                        <select class="form-select w-50 mx-auto" id="roles" name="roles" multiple>
+                            <option th:each="role : ${roles}"
+                                    th:value="${role.id}"
+                                    th:field="*{roles}"
+                                    th:text="${#strings.substringAfter(role.getTitle(), 'ROLE_')}"></option>
+                        </select>
+                    </div>
+<!--                    <div class="alert alert-danger mt-2 w-25 mx-auto"-->
+<!--                         th:if="${#fields.hasErrors('roles')}"-->
+<!--                         th:errors="*{roles}">roles error-->
+<!--                    </div>-->
+                </form>
+            </div>
+            <div class="modal-footer">
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                <button type="submit" class="btn btn-primary" form="editUser">Edit</button>
+            </div>
+        </div>
+    </div>
+</div>
+
 <!-- Bootstrap JS -->
 <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js"></script>
 </body>
