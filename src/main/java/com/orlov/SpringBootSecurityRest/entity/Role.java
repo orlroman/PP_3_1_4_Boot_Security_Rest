@@ -1,5 +1,6 @@
 package com.orlov.SpringBootSecurityRest.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import org.springframework.security.core.GrantedAuthority;
 
 import javax.persistence.Column;
@@ -22,7 +23,8 @@ public class Role implements GrantedAuthority {
 
     @Column(name = "role", unique = true, nullable = false)
     private String title;
-
+    
+    @JsonIgnore
     @ManyToMany(mappedBy = "roles")
     private Set<User> users;
 
