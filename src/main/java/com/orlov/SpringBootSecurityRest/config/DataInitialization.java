@@ -61,7 +61,6 @@ public class DataInitialization {
                     "user@example.com", "user", Set.of(userRole));
             userService.save(user);
         }
-        
-        
+
     }
 }

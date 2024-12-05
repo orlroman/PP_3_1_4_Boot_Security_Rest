@@ -9,6 +9,8 @@ import com.orlov.SpringBootSecurityRest.entity.User;
 import com.orlov.SpringBootSecurityRest.repository.UserRepository;
 import com.orlov.SpringBootSecurityRest.security.UserDetail;
 
+import java.util.Optional;
+
 @Service
 public class UserDetailService implements UserDetailsService {
     
@@ -21,10 +23,10 @@ public class UserDetailService implements UserDetailsService {
     
     @Override
     public UserDetails loadUserByUsername(String email) throws UsernameNotFoundException {
-        User user = userRepository.findByEmail(email);
-        if (user == null) {
+        Optional<User> user = userRepository.findByEmail(email);
+        if (user.isEmpty()) {
             throw new UsernameNotFoundException(String.format("User '%s' not found", email));
         }
-        return new UserDetail(user);
+        return new UserDetail(user.get());
     }
 }
