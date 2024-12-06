@@ -43,7 +43,7 @@ public class User {
     private String lastName;
     
     @NotNull(message = "Age should not be empty")
-    @Digits(integer = 2, fraction = 0, message = "Age must be a number with up to 3 digits")
+    @Digits(integer = 2, fraction = 0, message = "Age must be a number with up to 2 digits")
     @PositiveOrZero(message = "Age must be positive or zero")
     @Column(name = "age")
     private Integer age;

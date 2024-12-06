@@ -82,7 +82,8 @@ public class AdminController {
             return "admin/index";
         }
         
-        userService.update(id, user);
+        user.setId(id);
+        userService.update(user);
         return "redirect:/admin";
     }
     

@@ -60,11 +60,11 @@ public class UserServiceImpl implements UserService {
     
     @Override
     @Transactional
-    public void update(Long id, User user) {
-        Optional<User> userOptional = userRepository.findById(id);
+    public void update(User user) {
+        Optional<User> userOptional = userRepository.findById(user.getId());
         
         if (userOptional.isEmpty()) {
-            throw new EntityNotFoundException("User not found with id: " + id);
+            throw new EntityNotFoundException("User not found with id: " + user.getId());
         }
         user.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(user);

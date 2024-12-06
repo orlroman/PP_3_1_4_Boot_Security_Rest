@@ -32,7 +32,7 @@ public class UserValidator implements Validator {
         
         try {
             User existiongUser = userService.getUserByUsername(user.getEmail());
-            if (!existiongUser.getId().equals(user.getId())) {
+            if (existiongUser != null && !existiongUser.getId().equals(user.getId())) {
                 errors.rejectValue("email", "", "User with this email already exist");
             }
         } catch (UsernameNotFoundException ignored) {
