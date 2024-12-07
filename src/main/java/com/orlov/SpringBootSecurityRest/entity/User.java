@@ -12,6 +12,7 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.Digits;
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.NotNull;
 import javax.validation.constraints.Pattern;
@@ -49,7 +50,7 @@ public class User {
     private Integer age;
     
     @NotBlank(message = "Email should not be empty")
-//    @Email
+    @Email(message = "Invalid email format")
     @Column(name = "email", unique = true, nullable = false)
     private String email;
     
