@@ -41,19 +41,14 @@ public class AdminController {
 //    }
     
     @GetMapping
-    public String index(Model model) {
-//        model.addAttribute("users", userService.getUsers());
-//        model.addAttribute("roles", roleService.getRoles());
-//        model.addAttribute("user", new User());
+    public String index() {
         return "admin/newIndex";
     }
     
-//    @GetMapping(value = "/new")
-//    public String newUser(Model model) {
-//        model.addAttribute("roles", roleService.getRoles());
-//        model.addAttribute("user", new User());
-//        return "admin/new";
-//    }
+    @GetMapping(value = "/new")
+    public String newUser() {
+        return "admin/new";
+    }
 
 //    @PostMapping(value = "/save")
 //    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {

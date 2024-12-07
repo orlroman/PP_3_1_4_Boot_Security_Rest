@@ -1,5 +1,5 @@
 document.addEventListener('DOMContentLoaded', () => {
-    fetch('api/user/auth')
+    fetch('http://localhost:8080/api/user/auth')
         .then(response => {
             if (!response.ok) {
                 throw new Error('Failed to fetch user data')

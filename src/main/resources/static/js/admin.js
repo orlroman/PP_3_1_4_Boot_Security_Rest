@@ -1,8 +1,7 @@
 $(async function (){
     await getUsersTable();
+    await addNewUser();
 })
-
-
 
 const userFetchService = {
     head: {
@@ -10,7 +9,7 @@ const userFetchService = {
         'Content-Type': 'application/json',
         'Referer': null
     },
-    // bodyAdd : async function(user) {return {'method': 'POST', 'headers': this.head, 'body': user}},
+
     findAllUsers: async () => await fetch('api/users'),
     findOneUser: async (id) => await fetch(`api/users/${id}`),
     addNewUser: async (user) => await fetch('api/new',
@@ -53,7 +52,5 @@ async function getUsersTable() {
                 table.append(tableFilling);
             })
         })
-
-
-
 }
+
