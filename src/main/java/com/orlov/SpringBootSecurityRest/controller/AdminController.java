@@ -32,64 +32,64 @@ public class AdminController {
         this.userValidator = userValidator;
     }
     
-    @ModelAttribute("authUser")
-    public User addAuthenticatedUserModel(Principal principal) {
-        if (principal != null) {
-            return userService.getUserByUsername(principal.getName());
-        }
-        return null;
-    }
+//    @ModelAttribute("authUser")
+//    public User addAuthenticatedUserModel(Principal principal) {
+//        if (principal != null) {
+//            return userService.getUserByUsername(principal.getName());
+//        }
+//        return null;
+//    }
     
     @GetMapping
     public String index(Model model) {
-        model.addAttribute("users", userService.getUsers());
-        model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("user", new User());
-        return "admin/index";
+//        model.addAttribute("users", userService.getUsers());
+//        model.addAttribute("roles", roleService.getRoles());
+//        model.addAttribute("user", new User());
+        return "admin/newIndex";
     }
     
-    @GetMapping(value = "/new")
-    public String newUser(Model model) {
-        model.addAttribute("roles", roleService.getRoles());
-        model.addAttribute("user", new User());
-        return "admin/new";
-    }
+//    @GetMapping(value = "/new")
+//    public String newUser(Model model) {
+//        model.addAttribute("roles", roleService.getRoles());
+//        model.addAttribute("user", new User());
+//        return "admin/new";
+//    }
 
-    @PostMapping(value = "/save")
-    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
-        
-        model.addAttribute("roles", roleService.getRoles());
-        userValidator.validate(user, bindingResult);
-        
-        if (bindingResult.hasErrors()) {
-            return "admin/new";
-        }
-        
-        userService.save(user);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = "/save")
+//    public String create(@ModelAttribute("user") @Valid User user, BindingResult bindingResult, Model model) {
+//
+//        model.addAttribute("roles", roleService.getRoles());
+//        userValidator.validate(user, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            return "admin/new";
+//        }
+//
+//        userService.save(user);
+//        return "redirect:/admin";
+//    }
     
-    @PostMapping(value = "/edit/{id}")
-    public String update(@ModelAttribute(name = "user") @Valid User user, BindingResult bindingResult,
-                         @PathVariable("id") long id, Model model) {
-        
-        model.addAttribute("users", userService.getUsers());
-        model.addAttribute("roles", roleService.getRoles());
-        userValidator.validate(user, bindingResult);
-        
-        if (bindingResult.hasErrors()) {
-            model.addAttribute("editError", id);
-            return "admin/index";
-        }
-        
-        user.setId(id);
-        userService.update(user);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = "/edit/{id}")
+//    public String update(@ModelAttribute(name = "user") @Valid User user, BindingResult bindingResult,
+//                         @PathVariable("id") long id, Model model) {
+//
+//        model.addAttribute("users", userService.getUsers());
+//        model.addAttribute("roles", roleService.getRoles());
+//        userValidator.validate(user, bindingResult);
+//
+//        if (bindingResult.hasErrors()) {
+//            model.addAttribute("editError", id);
+//            return "admin/index";
+//        }
+//
+//        user.setId(id);
+//        userService.update(user);
+//        return "redirect:/admin";
+//    }
     
-    @PostMapping(value = "/delete/{id}")
-    public String delete(@PathVariable("id") long id) {
-        userService.delete(id);
-        return "redirect:/admin";
-    }
+//    @PostMapping(value = "/delete/{id}")
+//    public String delete(@PathVariable("id") long id) {
+//        userService.delete(id);
+//        return "redirect:/admin";
+//    }
 }

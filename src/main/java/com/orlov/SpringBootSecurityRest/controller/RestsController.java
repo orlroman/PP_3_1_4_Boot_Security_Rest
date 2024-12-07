@@ -57,7 +57,7 @@ public class RestsController {
         return userService.getUsers();
     }
     
-    @GetMapping(value = "/user/{id}")
+    @GetMapping(value = "/users/{id}")
     public User getUserById(@PathVariable("id") long id) {
         return userService.getUserById(id);
     }
