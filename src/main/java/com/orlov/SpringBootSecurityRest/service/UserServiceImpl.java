@@ -1,12 +1,11 @@
 package com.orlov.SpringBootSecurityRest.service;
 
+import com.orlov.SpringBootSecurityRest.entity.User;
+import com.orlov.SpringBootSecurityRest.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
-import com.orlov.SpringBootSecurityRest.entity.User;
-import com.orlov.SpringBootSecurityRest.repository.UserRepository;
 
 import javax.persistence.EntityExistsException;
 import javax.persistence.EntityNotFoundException;
@@ -30,7 +29,7 @@ public class UserServiceImpl implements UserService {
     public User getUserByUsername(String username) {
         Optional<User> optionalUser = userRepository.findByEmail(username);
         if (optionalUser.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with username: " + username);
+            throw new EntityNotFoundException("User not found with username: " + username);
         }
         return optionalUser.get();
     }
@@ -83,7 +82,7 @@ public class UserServiceImpl implements UserService {
         Optional<User> userOptional = userRepository.findById(id);
         
         if (userOptional.isEmpty()) {
-            throw new UsernameNotFoundException("User not found with id: " + id);
+            throw new EntityNotFoundException("User not found with id: " + id);
         }
         return userOptional.get();
     }

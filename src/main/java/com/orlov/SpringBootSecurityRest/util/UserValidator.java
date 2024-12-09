@@ -1,12 +1,13 @@
 package com.orlov.SpringBootSecurityRest.util;
 
+import com.orlov.SpringBootSecurityRest.entity.User;
+import com.orlov.SpringBootSecurityRest.service.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Component;
 import org.springframework.validation.Errors;
 import org.springframework.validation.Validator;
-import com.orlov.SpringBootSecurityRest.entity.User;
-import com.orlov.SpringBootSecurityRest.service.UserService;
+
+import javax.persistence.EntityNotFoundException;
 
 @Component
 public class UserValidator implements Validator {
@@ -35,7 +36,7 @@ public class UserValidator implements Validator {
             if (existiongUser != null && !existiongUser.getId().equals(user.getId())) {
                 errors.rejectValue("email", "", "User with this email already exist");
             }
-        } catch (UsernameNotFoundException ignored) {
+        } catch (EntityNotFoundException ignored) {
         
         }
         

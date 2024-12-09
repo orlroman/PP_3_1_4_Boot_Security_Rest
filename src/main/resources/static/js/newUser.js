@@ -9,7 +9,7 @@ const userFetchService = {
         'Referer': null
     },
 
-    addNewUser: async (user) => await fetch('http://localhost:8080/api/new',
+    addNewUser: async (user) => await fetch('http://localhost:8080/api/admin/new',
         {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
 }
 

@@ -1,12 +1,11 @@
 package com.orlov.SpringBootSecurityRest.config;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.security.core.userdetails.UsernameNotFoundException;
-import org.springframework.stereotype.Component;
 import com.orlov.SpringBootSecurityRest.entity.Role;
 import com.orlov.SpringBootSecurityRest.entity.User;
 import com.orlov.SpringBootSecurityRest.service.RoleService;
 import com.orlov.SpringBootSecurityRest.service.UserService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Component;
 
 import javax.annotation.PostConstruct;
 import javax.persistence.EntityNotFoundException;
@@ -47,7 +46,7 @@ public class DataInitialization {
         User admin;
         try {
             userService.getUserByUsername("admin@example.com");
-        } catch (UsernameNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             admin = new User("Admin", "Admin", 30,
                     "admin@example.com", "admin", Set.of(adminRole, userRole));
             userService.save(admin);
@@ -56,7 +55,7 @@ public class DataInitialization {
         User user;
         try {
             userService.getUserByUsername("user@example.com");
-        } catch (UsernameNotFoundException e) {
+        } catch (EntityNotFoundException e) {
             user = new User("User", "User", 35,
                     "user@example.com", "user", Set.of(userRole));
             userService.save(user);

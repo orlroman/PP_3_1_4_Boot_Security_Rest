@@ -10,11 +10,11 @@ const userFetchService = {
         'Referer': null
     },
 
-    findAllUsers: async () => await fetch('api/users'),
-    findOneUser: async (id) => await fetch(`api/users/${id}`),
-    updateUser: async (user, id) => await fetch(`api/edit/${id}`,
+    findAllUsers: async () => await fetch('api/admin/users'),
+    findOneUser: async (id) => await fetch(`api/admin/users/${id}`),
+    updateUser: async (user, id) => await fetch(`api/admin/edit/${id}`,
         {method: 'POST', headers: userFetchService.head, body: JSON.stringify(user)}),
-    deleteUser: async (id) => await fetch(`api/delete/${id}`,
+    deleteUser: async (id) => await fetch(`api/admin/delete/${id}`,
         {method: 'POST', headers: userFetchService.head})
 }
 
